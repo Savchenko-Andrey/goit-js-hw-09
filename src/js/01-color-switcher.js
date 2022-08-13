@@ -4,13 +4,14 @@ const refs = {
 }
 
 refs.btnStop.disabled = true
+let startInt
 
 refs.btnStart.addEventListener("click", () => {
-  setTimeout(() => {
-      document.body.style.backgroundColor = getRandomHexColor()
+    setTimeout(() => {
+      document.body.style.backgroundColor = getRandomHexColor();
   
       startInt = setInterval(() => {
-          document.body.style.backgroundColor = getRandomHexColor()
+          document.body.style.backgroundColor = getRandomHexColor();
       }, 1000);
 
   }, 0)

@@ -37,6 +37,19 @@ flatpickr(refs.input, {
   },
 });
 
+function onClose() {
+  userInputDate = selectedDates[0].getTime() - timeNow.getTime();
+  convertMs(userInputDate)
+
+  if(selectedDates[0] <= timeNow){
+    return Notiflix.Notify.failure('Please choose a date in the future');
+  } else {
+    Notiflix.Notify.success('Correct date');
+    refs.start.disabled = false
+    refs.input.disabled = true
+  }
+}
+
 
 refs.start.addEventListener("click", () => {
       timer.start(); 
