@@ -12,53 +12,59 @@ refs = {
     seconds: document.querySelector('[data-seconds]'),
 };
 
-
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-    console.log(selectedDates[0]);
-    },
-};
+refs.start.disabled = true
+let userInputDate = 0;
+const timeNow = new Date()
+let setIntervalId
 
 
-flatpickr('input[type=text]', options, () => {
-    
-    if(qwe <= new Date()){
-        window.alert("Please choose a date in the future")
-        refs.start.disabled = true
+flatpickr(refs.input, {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    userInputDate = selectedDates[0].getTime() - timeNow.getTime();
+    convertMs(userInputDate)
+
+    if(selectedDates[0] <= timeNow){
+      return Notiflix.Notify.failure('Please choose a date in the future');
+    } else {
+      Notiflix.Notify.success('Correct date');
+      refs.start.disabled = false
+      refs.input.disabled = true
     }
-})
+  },
+});
 
 
 refs.start.addEventListener("click", () => {
-    timer.start(); 
-    refs.start.disabled = true
+      timer.start(); 
+      refs.start.disabled = true
 });
+
 
 const timer = {
     start() {
-        const startTime = Date.now();
-
-        setInterval(() => {
-            const currentTime = Date.now();
-            const deltaTime = currentTime - startTime
-            const clockFace = convertMs(deltaTime);
-
-            updateClockFace(clockFace)
+       setIntervalId = setInterval(() => {
+          userInputDate -= 1000;
+            const funcTime = convertMs(userInputDate);
+            updateClockFace(funcTime)
+            stopTimer(funcTime);
         }, 1000)
-        
     },
 };
 
-
+function stopTimer(time) {
+  const { days, hours, minutes, seconds } = time;
+  if (days === '00' && hours === '00' && minutes === '00' && seconds === '00') {
+    clearInterval(setIntervalId);
+  }
+}
 
 function addLeadingZero(value) {
     return String(value).padStart(2, '0')
 }
-
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
@@ -79,10 +85,9 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
 };
 
-
 function updateClockFace ({ days, hours, minutes, seconds }) {
     refs.days.textContent = days
     refs.hours.textContent = hours
-    refs.minutes.textContent =minutes
+    refs.minutes.textContent = minutes
     refs.seconds.textContent = seconds
 }
