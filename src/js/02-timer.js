@@ -33,18 +33,6 @@ flatpickr('input[type=text]', options, () => {
 })
 
 
-flatpickr(refs.inputDate, {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-      TIMERS = selectedDates[0].getTime() - DATE_NOW.getTime();
-      handleRangeDate(selectedDates);
-      convertMs(TIMERS);
-    },
-  });
-
 refs.start.addEventListener("click", () => {
     timer.start(); 
     refs.start.disabled = true
@@ -52,7 +40,7 @@ refs.start.addEventListener("click", () => {
 
 const timer = {
     start() {
-        const startTime = ///////??
+        const startTime = Date.now();
 
         setInterval(() => {
             const currentTime = Date.now();
