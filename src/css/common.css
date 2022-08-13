@@ -12,7 +12,66 @@ body {
   line-height: 1.5;
 }
 
+.btn-styles {
+  margin-top: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-start {
+  /* line-height: 1.3; */
+  font-size: 30;
+  margin-right: 40px;
+  padding: 20px;
+  border-radius: 10px ;
+}
+
+.btn-stop {
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 30;
+
+}
+
+.btn-start:focus {
+  background-color: #000000;
+  color:  #ffffff;
+}
+
+.btn-stop:focus {
+  background-color: #000000;
+  color:  #ffffff;
+}
+
+
 img {
   display: block;
   max-width: 100%;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  margin-left: 25px;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;  
+
+}
+
+.field {
+  display: grid;
+  justify-content: center;  
+  align-items: center;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.value {
+  font-size: 50;
 }
